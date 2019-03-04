@@ -34,11 +34,17 @@ $(document).ready(async function(){
     });
     
     let deckId = resp.deck_id;
+    let cards = []
 
-    let card = await $.ajax({
-        method: "GET",
-        url: `${BASE_URL}${deckId}/draw/?count=1`
-    })
-    console.log(`${card.cards[0].value} of ${card.cards[0].suit}`)
+    for (let i = 0; i < 2; i++){
+        cards.push(await $.ajax({
+            method: "GET",
+            url: `${BASE_URL}${deckId}/draw/?count=1`
+        }))
+    }
 
+    for (let card of cards){
+        // console.log(card)
+        console.log(`${card.cards[0].value} of ${card.cards[0].suit} from deck ${deckId}`)
+    }
 })
