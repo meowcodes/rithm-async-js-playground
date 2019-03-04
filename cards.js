@@ -8,17 +8,15 @@ $(document).ready(async function(){
     });
     
     let deckId = resp.deck_id;
-    let cards = []
-
-    for (let i = 0; i < 2; i++){
-        cards.push(await $.ajax({
+    console.log(deckId)
+    $("#draw-card").on("click", async function(evt){
+        console.log('Clicked!')
+        let card = await $.ajax({
             method: "GET",
             url: `${BASE_URL}${deckId}/draw/?count=1`
-        }))
-    }
+        })
+        console.log(card)
+        $("#show-cards").append(`<li><img src="${card.cards[0].images.png}" alt="card"></li>`)
+    })
 
-    for (let card of cards){
-        // console.log(card)
-        console.log(`${card.cards[0].value} of ${card.cards[0].suit} from deck ${deckId}`)
-    }
 })
